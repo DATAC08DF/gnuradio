@@ -45,6 +45,8 @@ namespace gr {
       /* Create context & socket */
       d_context = new zmq::context_t(1);
       d_socket = new zmq::socket_t(*d_context, type);
+      int linger = 1000;
+      d_socket->setsockopt(ZMQ_LINGER, &linger, sizeof(linger));
     }
 
     base_impl::~base_impl()
