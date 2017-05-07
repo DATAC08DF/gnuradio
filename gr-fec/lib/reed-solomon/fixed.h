@@ -5,6 +5,9 @@
  * Copyright 2002 Phil Karn, KA9Q
  * May be used under the terms of the GNU General Public License (GPL)
  */
+#ifndef INCLUDED_FEC_CCSDS_RS_FIXED_H
+#define INCLUDED_FEC_CCSDS_RS_FIXED_H
+
 #define DTYPE unsigned char
 
 #include <gnuradio/fec/api.h>
@@ -38,3 +41,4 @@ extern unsigned char CCSDS_poly[];
 
 FEC_API void ENCODE_RS(DTYPE *data,DTYPE *parity);
 FEC_API int DECODE_RS(DTYPE *data, int *eras_pos, int no_eras);
+#endif // INCLUDED_FEC_CCSDS_RS_FIXED_H

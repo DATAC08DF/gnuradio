@@ -12,6 +12,7 @@
       <name>Decoders</name>
       <block>variable_cc_decoder_def</block>
       <block>variable_repetition_decoder_def</block>
+      <block>variable_ccsds_cc_decoder_def</block>
       <block>variable_ldpc_decoder_def</block>
       <block>variable_ldpc_bit_flip_decoder_def</block>
       <block>variable_tpc_decoder_def</block>
@@ -46,6 +47,7 @@
     <block>fec_async_decoder</block>
     <block>fec_decode_ccsds_27_fb</block>
     <block>fec_encode_ccsds_27_bb</block>
+    <block>fec_ccsds_rs_dual_basis_decoder_bb</block>
     <block>fec_puncture_xx</block>
     <block>fec_depuncture_bb</block>
     <block>fec_ber_bf</block>

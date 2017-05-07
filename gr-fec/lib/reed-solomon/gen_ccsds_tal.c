@@ -10,7 +10,9 @@
  * Copyright 2002 Phil Karn, KA9Q
  * May be used under the terms of the GNU General Public License (GPL)
  */
+#include <stdlib.h>
 #include <stdio.h>
+
 unsigned char Taltab[256],Tal1tab[256];
 
 static unsigned char tal[] = { 0x8d, 0xef, 0xec, 0x86, 0xfa, 0x99, 0xaf, 0x7b };
@@ -32,13 +34,14 @@ int main(){
       }
     Tal1tab[Taltab[i]] = i;
   }
-  printf("unsigned char Taltab[] = {\n");
+  printf("#include <gnuradio/fec/api.h>\n\n");
+  printf("FEC_API unsigned char Taltab[] = {\n");
   for(i=0;i<256;i++){
     if((i % 16) == 0)
       printf("\n");
     printf("0x%02x,",Taltab[i]);
   }
-  printf("\n};\n\nunsigned char Tal1tab[] = {");
+  printf("\n};\n\nFEC_API unsigned char Tal1tab[] = {");
   for(i=0;i<256;i++){
     if((i % 16) == 0)
       printf("\n");

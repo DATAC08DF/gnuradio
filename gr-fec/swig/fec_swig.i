@@ -69,6 +69,7 @@
 #include "gnuradio/fec/polar_decoder_common.h"
 #include "gnuradio/fec/polar_encoder_systematic.h"
 #include "gnuradio/fec/polar_decoder_sc_systematic.h"
+#include "gnuradio/fec/ccsds_rs_decoder.h"
 %}
 
 %include "gnuradio/fec/generic_decoder.h"
@@ -103,7 +104,9 @@
 %include "gnuradio/fec/polar_encoder_systematic.h"
 %include "gnuradio/fec/polar_decoder_sc_systematic.h"
 %include "gnuradio/fec/ldpc_encoder.h"
+%include "gnuradio/fec/ccsds_rs_decoder.h"
 
+%include "rs.i"
 
 #ifdef GSL_FOUND
 %{
@@ -140,3 +143,4 @@ GR_SWIG_BLOCK_MAGIC2(fec, conv_bit_corr_bb);
 GR_SWIG_BLOCK_MAGIC2(fec, puncture_bb);
 GR_SWIG_BLOCK_MAGIC2(fec, puncture_ff);
 GR_SWIG_BLOCK_MAGIC2(fec, depuncture_bb);
+

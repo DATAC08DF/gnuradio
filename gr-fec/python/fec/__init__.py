@@ -41,7 +41,7 @@ from capillary_threaded_encoder import capillary_threaded_encoder
 from extended_async_encoder import extended_async_encoder
 from extended_tagged_encoder import extended_tagged_encoder
 from extended_tagged_decoder import extended_tagged_decoder
-
+from ccsds_rs_dual_basis_decoder_bb import ccsds_rs_dual_basis_decoder_bb
 
 from fec_test import fec_test
 from bercurve_generator import bercurve_generator

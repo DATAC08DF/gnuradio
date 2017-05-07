@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<block>
+  <name>CCSDS RS Dual Basis Decoder</name>
+  <key>fec_ccsds_rs_dual_basis_decoder_bb</key>
+  <import>from gnuradio import fec</import>
+  <make>fec.ccsds_rs_dual_basis_decoder_bb($decoder)</make>
+
+  <param>
+    <name>Decoder Object</name>
+    <key>decoder</key>
+    <value>decoder_variable</value>
+    <type>raw</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>byte</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>byte</type>
+  </source>
+
+  <doc>
+    This block augments the given decoder with the CCSDS RS dual-basis transformation.
+  </doc>
+
+</block>

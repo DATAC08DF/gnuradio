@@ -33,6 +33,7 @@ GR_PYTHON_INSTALL(
     extended_async_encoder.py
     extended_tagged_encoder.py
     extended_tagged_decoder.py
+    ccsds_rs_dual_basis_decoder_bb.py
     fec_test.py
     bercurve_generator.py
     DESTINATION ${GR_PYTHON_DIR}/gnuradio/fec

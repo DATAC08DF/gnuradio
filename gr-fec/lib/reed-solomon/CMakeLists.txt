@@ -32,6 +32,7 @@ if(MSVC)
     )
 endif(MSVC)
 
+# These are really template files
 set(gr_fec_rs_sources
     ${CMAKE_CURRENT_SOURCE_DIR}/encode_rs.c
     ${CMAKE_CURRENT_SOURCE_DIR}/decode_rs.c
@@ -39,24 +40,63 @@ set(gr_fec_rs_sources
 )
 
 ########################################################################
-# Setup sources and includes
+# Generate sources
 ########################################################################
-list(APPEND gnuradio_fec_sources ${gr_fec_rs_sources})
 
-#install(
-#    FILES ${CMAKE_CURRENT_SOURCE_DIR}/rs.h
-#    DESTINATION ${GR_INCLUDE_DIR}/gnuradio/fec
-#    COMPONENT "fec_devel"
-#)
+# CCSDS tables
+add_executable(gen_ccsds 
+  ${CMAKE_CURRENT_SOURCE_DIR}/gen_ccsds.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/init_rs.c)
+target_include_directories(gen_ccsds PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ccsds.c
+  COMMAND gen_ccsds > ${CMAKE_CURRENT_BINARY_DIR}/ccsds.c
+  COMMENT "Generating ccsds.c"
+)
+
+add_executable(gen_ccsds_tal ${CMAKE_CURRENT_SOURCE_DIR}/gen_ccsds_tal.c)
+target_include_directories(gen_ccsds_tal PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_custom_command(
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ccsds_tal.c
+  COMMAND gen_ccsds_tal > ${CMAKE_CURRENT_BINARY_DIR}/ccsds_tal.c
+  COMMENT "Generating ccsds_tal.c"
+)
+
+########################################################################
+# Setup library sources and includes
+########################################################################
+# create a lib for each type of RS codec, don't do CCSDS explicitly,
+# rather add ccsds and ccsds_tal files to rs-8 (fixed) lib
+add_library(gnuradio-fec-rs-8 SHARED 
+    ${gr_fec_rs_sources}
+    ${CMAKE_CURRENT_BINARY_DIR}/ccsds.c 
+    ${CMAKE_CURRENT_BINARY_DIR}/ccsds_tal.c)
+target_compile_definitions(gnuradio-fec-rs-8 PUBLIC -DFIXED)
+add_library(gnuradio-fec-rs-int SHARED ${gr_fec_rs_sources})
+target_compile_definitions(gnuradio-fec-rs-int PUBLIC -DBIGSYM)
+add_library(gnuradio-fec-rs-char SHARED ${gr_fec_rs_sources})
+target_compile_definitions(gnuradio-fec-rs-char PUBLIC -DCHAR)
+
+#GR_LIBRARY_FOO(gnuradio-fec-rs-8 RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+#GR_LIBRARY_FOO(gnuradio-fec-rs-int RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+#GR_LIBRARY_FOO(gnuradio-fec-rs-char RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+
+list(APPEND gnuradio_fec_libs 
+    gnuradio-fec-rs-8
+    gnuradio-fec-rs-int
+    gnuradio-fec-rs-char)
 
 ########################################################################
 # Register unit tests
 ########################################################################
+
 if(ENABLE_TESTING)
-add_executable(gr_fec_rstest
-    ${gr_fec_rs_sources}
-    ${CMAKE_CURRENT_SOURCE_DIR}/rstest.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/exercise.c
-)
-add_test(gr-fec-reed-solomon-test gr_fec_rstest)
+    # char is the only active test by default
+    add_executable(gr_fec_rstest_char
+        ${gr_fec_rs_sources}
+        ${CMAKE_CURRENT_SOURCE_DIR}/rstest.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/exercise.c
+    )
+    target_compile_definitions(gr_fec_rstest_char PUBLIC -DCHAR)
+    add_test(gr-fec-reed-solomon-char-test gr_fec_rstest_char)
 endif(ENABLE_TESTING)

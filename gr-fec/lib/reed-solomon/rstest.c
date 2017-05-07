@@ -14,12 +14,12 @@
 #include <time.h>
 #include <gnuradio/fec/rs.h>
 
-int exercise_char(void *,int);
+extern int exercise_char(void *, int);
 
 #ifdef ALL_VERSIONS
-int exercise_int(void *,int);
-int exercise_8(int);
-int exercise_ccsds(int);
+extern int exercise_int(void *,int);
+extern int exercise_8(int);
+extern int exercise_ccsds(int);
 #endif
 
 struct {
