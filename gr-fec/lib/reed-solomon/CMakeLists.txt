@@ -77,9 +77,9 @@ target_compile_definitions(gnuradio-fec-rs-int PUBLIC -DBIGSYM)
 add_library(gnuradio-fec-rs-char SHARED ${gr_fec_rs_sources})
 target_compile_definitions(gnuradio-fec-rs-char PUBLIC -DCHAR)
 
-#GR_LIBRARY_FOO(gnuradio-fec-rs-8 RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
-#GR_LIBRARY_FOO(gnuradio-fec-rs-int RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
-#GR_LIBRARY_FOO(gnuradio-fec-rs-char RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+GR_LIBRARY_FOO(gnuradio-fec-rs-8 RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+GR_LIBRARY_FOO(gnuradio-fec-rs-int RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
+GR_LIBRARY_FOO(gnuradio-fec-rs-char RUNTIME_COMPONENT "fec_runtime" DEVEL_COMPONENT "fec_devel")
 
 list(APPEND gnuradio_fec_libs 
     gnuradio-fec-rs-8
